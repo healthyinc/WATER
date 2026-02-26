@@ -1,2 +1,3 @@
-# WATER
-Workflow Allocation Towards Edge Resources
+# WATER: Workflow Allocation Towards Edge Resources
+
+This project scopes the cloud and edge landscape to build a hybrid-cloud/multi-cloud environment for healthcare workflows. The healthcare workflows can be executed on healthcare data across multiple nodes, in-cloud, across cloud providers, or in a hybrid edge-to-cloud compute continuum. The workflows can be machine learning (ML) models, artificial intelligence (AI) algorithms, and other pipelines that can be facilitated by open-source frameworks such as Niffler and CONTROL-CORE. The goal here is to develop WATER as a unified framework that facilitates workflow allocation towards edge resources, using the research and industry best practices with cutting-edge, cloud, distributed, and decentralized frameworks.
