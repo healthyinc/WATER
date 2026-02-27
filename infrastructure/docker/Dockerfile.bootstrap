@@ -1,0 +1,25 @@
+###############################################################################
+# WATER Framework — Bootstrap Data Loader
+# Containerized runner for the TCIA → Orthanc data pipeline
+###############################################################################
+FROM python:3.11-slim
+
+LABEL maintainer="WATER Framework Team"
+LABEL description="Bootstrap script for loading TCIA DICOM data into Orthanc"
+
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends curl && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copy dependency spec first for layer caching
+COPY pyproject.toml ./
+COPY src/ ./src/
+
+# Install the package
+RUN pip install --no-cache-dir -e ".[dev]"
+
+# Default entrypoint
+ENTRYPOINT ["python", "-m", "water.dicom.bootstrap_data"]

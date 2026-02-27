@@ -1,0 +1,42 @@
+###############################################################################
+# WATER Framework — Phase 1.1: Local DICOM Environment
+# Docker Compose configuration for Orthanc PACS simulation
+###############################################################################
+
+services:
+  orthanc:
+    image: jodogne/orthanc:latest
+    container_name: water-orthanc
+    restart: unless-stopped
+    ports:
+      - "${ORTHANC_HTTP_PORT:-8042}:8042"   # REST API + Web UI
+      - "${ORTHANC_DICOM_PORT:-4242}:4242"  # DICOM protocol
+    volumes:
+      - orthanc-data:/var/lib/orthanc/db
+      - ./infrastructure/orthanc/orthanc.json:/etc/orthanc/orthanc.json:ro
+    environment:
+      - ORTHANC_NAME=WATER-Orthanc
+      - VERBOSE_ENABLED=true
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8042/system"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+    networks:
+      - water-net
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  orthanc-data:
+    driver: local
+    name: water-orthanc-data
+
+networks:
+  water-net:
+    driver: bridge
+    name: water-network

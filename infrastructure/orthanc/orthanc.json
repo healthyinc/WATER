@@ -1,0 +1,45 @@
+{
+  "Name": "WATER-Orthanc",
+  "StorageDirectory": "/var/lib/orthanc/db",
+  "IndexDirectory": "/var/lib/orthanc/db",
+  "StorageCompression": false,
+  "MaximumStorageSize": 0,
+  "MaximumPatientCount": 0,
+  "HttpServerEnabled": true,
+  "HttpPort": 8042,
+  "HttpDescribeErrors": true,
+  "HttpCompressionEnabled": true,
+
+  "DicomServerEnabled": true,
+  "DicomAet": "WATER_ORTHANC",
+  "DicomPort": 4242,
+  "DicomCheckCalledAet": false,
+  "DicomCheckModalityHost": false,
+
+  "DefaultEncoding": "Latin1",
+  "DeflatedTransferSyntaxAccepted": true,
+  "JpegTransferSyntaxAccepted": true,
+  "Jpeg2000TransferSyntaxAccepted": true,
+  "JpegLosslessTransferSyntaxAccepted": true,
+  "Mpeg2TransferSyntaxAccepted": true,
+  "RleTransferSyntaxAccepted": true,
+  "UnknownSopClassAccepted": false,
+
+  "RemoteAccessAllowed": true,
+  "AuthenticationEnabled": false,
+  "RegisteredUsers": {},
+
+  "DicomModalities": {},
+  "OrthancPeers": {},
+
+  "StableAge": 60,
+  "StrictAetComparison": false,
+  "OverwriteInstances": true,
+  "MaximumStorageMode": "Recycle",
+
+  "KeepAlive": true,
+  "TcpNoDelay": true,
+  "HttpThreadsCount": 50,
+
+  "DicomScuTimeout": 10
+}
