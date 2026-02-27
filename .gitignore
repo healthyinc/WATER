@@ -194,6 +194,14 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 
+# ── WATER Framework ─────────────────────────────────────────────────────────
+# Downloaded DICOM data (can be large)
+data/tcia_downloads/
+data/*.dcm
+
+# Runtime logs
+logs/*.log
+
 # Cursor
 #  Cursor is an AI-powered code editor. `.cursorignore` specifies files/directories to
 #  exclude from AI features like autocomplete and code analysis. Recommended for sensitive data
