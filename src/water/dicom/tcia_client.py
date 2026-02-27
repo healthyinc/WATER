@@ -149,7 +149,12 @@ class TCIAClient:
                 for member in zf.namelist():
                     if member.endswith("/"):
                         continue  # skip directories
-                    target = series_dir / Path(member).name
+                    name = Path(member).name
+                    # Skip non-DICOM files bundled in the ZIP (LICENSE, README, etc.)
+                    if not name.lower().endswith(".dcm"):
+                        logger.debug("Skipping non-DICOM file in ZIP: %s", name)
+                        continue
+                    target = series_dir / name
                     target.write_bytes(zf.read(member))
                     extracted_files.append(target)
         except zipfile.BadZipFile:

@@ -167,6 +167,9 @@ def run(
 
     tcia.close()
 
+    # Filter to only .dcm files (safety net — TCIA ZIPs may include LICENSE, README, etc.)
+    all_dicom_files = [f for f in all_dicom_files if f.suffix.lower() == ".dcm"]
+
     if not all_dicom_files:
         logger.error("No DICOM files were downloaded. Aborting upload.")
         sys.exit(1)
