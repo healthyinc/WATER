@@ -35,7 +35,7 @@ from water.dicom.tcia_client import TCIAClient
 logger = logging.getLogger(__name__)
 console = Console()
 
-# ---- Helpers ---------------------------------------------------------------
+# Helpers
 
 
 def _wait_for_orthanc(client: OrthancClient, max_retries: int = 12, delay: float = 5.0) -> None:
@@ -91,13 +91,10 @@ def _print_summary(orthanc: OrthancClient, upload_stats: dict[str, int]) -> None
     table.add_row("Total series in Orthanc", str(server_stats.get("CountSeries", "?")))
     table.add_row("Total instances in Orthanc", str(server_stats.get("CountInstances", "?")))
     disk_bytes = int(server_stats.get("TotalDiskSize", 0))
-    table.add_row("Total disk size", f"{disk_bytes / (1024 ** 2):.1f} MB")
+    table.add_row("Total disk size", f"{disk_bytes / (1024**2):.1f} MB")
 
     console.print()
     console.print(table)
-
-
-# ---- Main ------------------------------------------------------------------
 
 
 def run(
@@ -120,7 +117,7 @@ def run(
     """
     download_dir.mkdir(parents=True, exist_ok=True)
 
-    # ── Step 1: Verify Orthanc connectivity ──────────────────────────────
+    # Step 1: Verify Orthanc connectivity
     console.print("\n[bold blue]▸ Step 1/3:[/] Connecting to Orthanc …")
     orthanc = OrthancClient(
         base_url=orthanc_url,
@@ -129,7 +126,7 @@ def run(
     )
     _wait_for_orthanc(orthanc)
 
-    # ── Step 2: Query TCIA and download series ───────────────────────────
+    # Step 2: Query TCIA and download series
     console.print(f"\n[bold blue]▸ Step 2/3:[/] Querying TCIA collection [cyan]{collection}[/] …")
     tcia = TCIAClient()
 
@@ -176,11 +173,11 @@ def run(
 
     logger.info("Downloaded %d DICOM file(s) total.", len(all_dicom_files))
 
-    # ── Step 3: Push to Orthanc ──────────────────────────────────────────
+    # Step 3: Push to Orthanc
     console.print(f"\n[bold blue]▸ Step 3/3:[/] Uploading {len(all_dicom_files)} DICOM files to Orthanc …")
     upload_stats = _push_files_to_orthanc(orthanc, all_dicom_files)
 
-    # ── Summary ──────────────────────────────────────────────────────────
+    # Summary
     _print_summary(orthanc, upload_stats)
     orthanc.close()
     console.print("\n[bold green]✓ Bootstrap complete.[/]\n")
@@ -195,18 +192,21 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         description="Bootstrap a local Orthanc DICOM server with TCIA imaging data.",
     )
     parser.add_argument(
-        "-c", "--collection",
+        "-c",
+        "--collection",
         default=settings.tcia.collection,
         help=f"TCIA collection name (default: {settings.tcia.collection})",
     )
     parser.add_argument(
-        "-n", "--max-series",
+        "-n",
+        "--max-series",
         type=int,
         default=settings.tcia.max_series,
         help=f"Max series to download (default: {settings.tcia.max_series})",
     )
     parser.add_argument(
-        "-d", "--download-dir",
+        "-d",
+        "--download-dir",
         type=Path,
         default=settings.tcia.download_dir,
         help=f"Download staging directory (default: {settings.tcia.download_dir})",

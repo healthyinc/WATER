@@ -1,7 +1,4 @@
-###############################################################################
-# WATER Framework — Bootstrap Data Loader
 # Containerized runner for the TCIA → Orthanc data pipeline
-###############################################################################
 FROM python:3.11-slim
 
 LABEL maintainer="WATER Framework Team"

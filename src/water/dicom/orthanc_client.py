@@ -52,7 +52,7 @@ class OrthancClient:
         )
         self._base_url = base_url
 
-    # -- Lifecycle --------------------------------------------------------
+    # Lifecycle
 
     def close(self) -> None:
         """Close the underlying HTTP connection pool."""
@@ -64,7 +64,7 @@ class OrthancClient:
     def __exit__(self, *_: Any) -> None:
         self.close()
 
-    # -- Server introspection ---------------------------------------------
+    # Server introspection
 
     def get_system_info(self) -> dict[str, Any]:
         """Return Orthanc server system information.
@@ -84,7 +84,7 @@ class OrthancClient:
         except (httpx.HTTPError, httpx.ConnectError):
             return False
 
-    # -- Statistics -------------------------------------------------------
+    # Statistics
 
     def get_statistics(self) -> dict[str, Any]:
         """Return storage statistics (patient/study/series/instance counts)."""
@@ -92,7 +92,7 @@ class OrthancClient:
         resp.raise_for_status()
         return resp.json()
 
-    # -- Upload -----------------------------------------------------------
+    # Upload
 
     @retry(
         retry=retry_if_exception_type((httpx.ConnectError, httpx.TimeoutException)),
@@ -134,7 +134,7 @@ class OrthancClient:
         logger.debug("Uploaded %s → %s", path.name, result.get("ID", "unknown"))
         return result
 
-    # -- Query ------------------------------------------------------------
+    # Query
 
     def list_patients(self) -> list[str]:
         """Return the list of Orthanc patient IDs."""

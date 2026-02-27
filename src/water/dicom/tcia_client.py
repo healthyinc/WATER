@@ -58,7 +58,7 @@ class TCIAClient:
         self._download_timeout = download_timeout
         self._base_url = base_url
 
-    # -- Lifecycle --------------------------------------------------------
+    # Lifecycle
 
     def close(self) -> None:
         self._client.close()
@@ -69,7 +69,7 @@ class TCIAClient:
     def __exit__(self, *_: Any) -> None:
         self.close()
 
-    # -- Collection metadata ----------------------------------------------
+    # Collection metadata
 
     def get_collections(self) -> list[dict[str, Any]]:
         """Return all available TCIA collections."""
@@ -106,7 +106,7 @@ class TCIAClient:
         resp.raise_for_status()
         return resp.json()
 
-    # -- Download ---------------------------------------------------------
+    # Download
 
     @retry(
         retry=retry_if_exception_type((httpx.ConnectError, httpx.TimeoutException)),

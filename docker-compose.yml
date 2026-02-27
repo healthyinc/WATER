@@ -1,11 +1,8 @@
-###############################################################################
-# WATER Framework — Phase 1.1: Local DICOM Environment
 # Docker Compose configuration for Orthanc PACS simulation
-###############################################################################
 
 services:
   orthanc:
-    image: jodogne/orthanc:latest
+    image: orthancteam/orthanc:latest
     container_name: water-orthanc
     restart: unless-stopped
     ports:
@@ -17,6 +14,7 @@ services:
     environment:
       - ORTHANC_NAME=WATER-Orthanc
       - VERBOSE_ENABLED=true
+      - ORTHANC__ORTHANC_EXPLORER_2__IS_DEFAULT_ORTHANC_UI=true
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8042/system"]
       interval: 10s
